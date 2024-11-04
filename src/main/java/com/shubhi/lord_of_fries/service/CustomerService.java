@@ -1,6 +1,7 @@
 package com.shubhi.lord_of_fries.service;
 
 import com.shubhi.lord_of_fries.dto.CustomerRequest;
+import com.shubhi.lord_of_fries.dto.LoginRequest;
 import com.shubhi.lord_of_fries.entity.Customer;
 import com.shubhi.lord_of_fries.mapper.CustomerMapper;
 import com.shubhi.lord_of_fries.repo.CustomerRepo;
@@ -20,6 +21,14 @@ public class CustomerService {
         rep.save(customer);
         return "created";
 
+    }
+    public String loginchecking(LoginRequest  req){
+        Customer customer=rep.findByEmail(req.email());
+        if(customer==null){ return "Invalid email";}
+        else{
+            if(customer.getPassword().equals(req.password())){return "Login Successfull";}
+            else return "Invalid password";
+        }
     }
 
 
