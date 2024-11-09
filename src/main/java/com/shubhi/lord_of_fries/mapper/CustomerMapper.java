@@ -1,6 +1,7 @@
 package com.shubhi.lord_of_fries.mapper;
 
 import com.shubhi.lord_of_fries.dto.CustomerRequest;
+import com.shubhi.lord_of_fries.dto.CustomerResponse;
 import com.shubhi.lord_of_fries.entity.Customer;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +15,10 @@ public class CustomerMapper {
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .build();
+    }
+    public CustomerResponse toResponse(Customer customer) {
+        return new CustomerResponse(customer.getFirstName(), customer.getLastName(), customer.getEmail());
+
+
     }
 }

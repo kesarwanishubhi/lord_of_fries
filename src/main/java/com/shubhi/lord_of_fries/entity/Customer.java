@@ -29,4 +29,6 @@ public class Customer {
     @Column(name="password",nullable = false)
     private String password;
 
+//    public Customer orElseThrow(Object o) {
+//    }
 }
