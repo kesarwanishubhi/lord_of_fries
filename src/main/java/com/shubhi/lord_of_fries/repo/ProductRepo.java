@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
-    @Query("select p from Product p where p.price > :price")
-    List<Product> findByPriceGreaterThan(@Param("price") double price);
+    @Query("SELECT p FROM Product p WHERE p.price BETWEEN :minPrice AND :maxPrice ORDER BY p.price ASC")
+    List<Product> findTop2(@Param("minPrice") double minPrice,
+                           @Param("maxPrice") double maxPrice);
 
 }

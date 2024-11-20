@@ -9,6 +9,8 @@ import com.shubhi.lord_of_fries.hepler.EncryptionService;
 import com.shubhi.lord_of_fries.hepler.JwtHelper;
 import com.shubhi.lord_of_fries.mapper.CustomerMapper;
 import com.shubhi.lord_of_fries.repo.CustomerRepo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +42,8 @@ public class CustomerService {
                 ));
     }
 
-    public CustomerResponse retrieveCustomer(String email) {
+    public CustomerResponse retrieveCustomer(String email, String token) {
+        if(!headerChecking(token)) return null;
         Customer customer = getCustomer(email);
         return mapper.toResponse(customer);
     }
@@ -53,6 +56,11 @@ public class CustomerService {
         return "failed";
 
 
+    }
+    public boolean headerChecking(String recievedToken){
+        String token = recievedToken.substring(7); // Extract token from "Bearer {token}"
+
+        return jwtHelper.validateToken(token);
     }
 
 
